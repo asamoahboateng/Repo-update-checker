@@ -1,0 +1,3 @@
+# The Python venv lives in a named volume at /opt/venv (see docker-compose.venv.yaml).
+# Create the mount point world-writable so the volume is writable by the ddev user.
+RUN mkdir -p /opt/venv && chmod 777 /opt/venv

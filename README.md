@@ -20,6 +20,32 @@ Click **Fetch / refresh from GitHub** once. The results are cached in `.cache/<o
 
 **Token:** a classic PAT needs the `repo` and `read:org` scopes. A fine-grained token needs Contents: Read-only on the org's repos. If the org uses SSO, authorise the token for SSO.
 
+## Run with DDEV
+
+Requires [DDEV](https://ddev.com) (v1.24+). There's no database container. Streamlit runs as a background service in the web container.
+
+```bash
+cp .env.example .env      # set GITHUB_TOKEN
+ddev start                # first start creates the Python venv (~1 min)
+ddev launch               # opens https://repo-update-checker.ddev.site
+```
+
+| Command | What it does |
+|---|---|
+| `ddev start` / `ddev stop` / `ddev restart` | Start or stop the app |
+| `ddev launch` | Open the app in the browser |
+| `ddev logs -f` | Follow the Streamlit output |
+| `ddev app-restart` | Restart only the Streamlit process |
+| `ddev test [args]` | Run pytest in the container |
+| `ddev python …` / `ddev pip …` | Python / pip from the container venv (`/opt/venv`) |
+| `ddev ssh` | Shell into the web container |
+
+Notes:
+
+- **Live reload:** code changes reload automatically (`--server.runOnSave`).
+- **Python packages:** they live in a Docker volume (`repo-update-checker-python-venv`) and are reinstalled automatically on the next start when `requirements*.txt` changes. To start again from scratch, run `ddev delete -O` or `docker volume rm repo-update-checker-python-venv`.
+- **Repo data:** `.cache/` is bind-mounted rather than synced through Mutagen, and the host `.venv/` is excluded from the sync.
+
 ## Search
 
 - Matches are substring and case-insensitive by default. Tick **Exact match** to require the full name (e.g. `drupal/core`).

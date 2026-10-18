@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+## Description: Restart the Streamlit daemon
+## Usage: app-restart
+## Example: "ddev app-restart"
+supervisorctl restart webextradaemons:streamlit && echo "Streamlit restarted."

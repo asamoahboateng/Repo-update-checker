@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+## Description: Run python from the app's venv
+## Usage: python [args]
+## Example: "ddev python -c 'import streamlit; print(streamlit.__version__)'"
+exec /opt/venv/bin/python "$@"

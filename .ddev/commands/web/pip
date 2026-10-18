@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+## Description: Run pip in the app's venv (remember to update requirements.txt)
+## Usage: pip [args]
+## Example: "ddev pip list" or "ddev pip install httpx"
+exec /opt/venv/bin/pip "$@"

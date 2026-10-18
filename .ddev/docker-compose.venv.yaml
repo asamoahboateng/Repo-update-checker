@@ -1,0 +1,11 @@
+# Persist the Linux Python venv in a Docker volume: survives `ddev restart`,
+# and stays out of the host<->container file sync (the host .venv is macOS-only).
+services:
+  web:
+    volumes:
+      - python-venv:/opt/venv
+    environment:
+      - PATH=/opt/venv/bin:/var/www/html/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+volumes:
+  python-venv:
+    name: "${COMPOSE_PROJECT_NAME}-python-venv"

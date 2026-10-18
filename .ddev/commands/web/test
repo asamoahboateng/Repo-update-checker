@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+## Description: Run the pytest suite
+## Usage: test [pytest args]
+## Example: "ddev test" or "ddev test -k renovate"
+/var/www/html/.ddev/scripts/ensure-venv.sh
+exec /opt/venv/bin/python -m pytest "$@"
